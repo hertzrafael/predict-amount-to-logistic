@@ -29,7 +29,7 @@ class Conversor:
         })
 
     def __get_path__(self):
-        return os.path.join("files", "PCMOVENDPEND.csv") if self.default else self.file
+        return os.path.join("files", "PCMOVENDPEND_FILTERED.csv") if self.default else self.file
 
     def __read_excel__(self):
         return pd.read_excel(self.__get_path__(), usecols=self.needed_cols, engine='openpyxl')
