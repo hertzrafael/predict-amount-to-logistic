@@ -8,6 +8,11 @@ class Program:
     def __get_uploaded_frame__(self):
         return self.st.session_state.get('uploaded_frame')
     
+    def __save_session_frame__(self, conversor, file_name='PCMOVENDPEND'):
+        frame = conversor.convert()
+        self.st.session_state['uploaded_frame'] = frame
+        self.st.session_state['file_name'] = file_name
+    
     def get_best_sellers_in_seasons(self):
         frame = self.__get_uploaded_frame__()
         season = (frame

@@ -1,12 +1,14 @@
 import pandas as pd
+import os
 
 class Conversor:
 
-    def __init__(self, file):
+    def __init__(self, file, default=False):
         self.file = file
         self.needed_cols = [
             'CODPROD', 'NUMOS', 'DTINICIOOS'
         ]
+        self.default = default
 
     def convert(self):
         extension = self.file.name.split('.')[-1]
@@ -26,8 +28,11 @@ class Conversor:
             'CODPROD': str
         })
 
+    def __get_path__(self):
+        return os.path.join("files", "PCMOVENDPEND.csv") if self.default else self.file
+
     def __read_excel__(self):
-        return pd.read_excel(self.file, usecols=self.needed_cols, engine='openpyxl')
+        return pd.read_excel(self.__get_path__(), usecols=self.needed_cols, engine='openpyxl')
     
     def __read_csv__(self):
-        return pd.concat(pd.read_csv(self.file, usecols=self.needed_cols, chunksize=5000))
+        return pd.concat(pd.read_csv(self.__get_path__(), usecols=self.needed_cols, chunksize=5000))

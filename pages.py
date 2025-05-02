@@ -64,20 +64,22 @@ class Pages:
     def upload(self):
         self.st.title('Insira aqui os seus dados')
 
+        default = 'uploaded_frame' not in st.session_state
+        conversor = Conversor(file, default=default)
+
         file = self.st.file_uploader('Faça o upload aqui:', type=['csv'], )
         file_name = None
         if file:
             file_name = file.name
 
             with self.st.spinner("Aguarde enquanto o arquivo é carregado..."):
-                conversor = Conversor(file)
-                frame = conversor.convert()
-                self.st.session_state['uploaded_frame'] = frame
-                self.st.session_state['file_name'] = file_name
+                self.program.__save_session_frame__(conversor, file_name)
+                
         else:
-            
             if 'file_name' in self.st.session_state:
                 file_name = self.st.session_state['file_name']
+            else:
+                self.program.__save_session_frame__(conversor)
 
         self.st.text(f'Arquivo upado atualmente: {file_name or 'Nenhum'}')
     
