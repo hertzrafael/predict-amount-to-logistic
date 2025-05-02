@@ -12,6 +12,8 @@ class Program:
         frame = conversor.convert()
         self.st.session_state['uploaded_frame'] = frame
         self.st.session_state['file_name'] = file_name
+
+        return file_name
     
     def get_best_sellers_in_seasons(self):
         frame = self.__get_uploaded_frame__()

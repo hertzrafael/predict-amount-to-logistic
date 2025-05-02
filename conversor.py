@@ -11,17 +11,28 @@ class Conversor:
         self.default = default
 
     def convert(self):
-        extension = self.file.name.split('.')[-1]
+        print('p1')
+        extension = 'csv'
+
+        if self.file:
+            extension = self.file.name.split('.')[-1]
+            print('p2')
 
         conversors = {
             'xlsx': self.__read_excel__,
             'csv': self.__read_csv__
         }
+        print('p3')
 
         if not extension in conversors:
             return None
         
-        return self.__transform__(conversors[extension]())
+        print('p4')
+        
+        frame = self.__transform__(conversors[extension]())
+        print(frame)
+
+        return frame
 
     def __transform__(self, frame):
         return frame.astype({
