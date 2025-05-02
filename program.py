@@ -1,5 +1,7 @@
 import pandas as pd
 
+from conversor import Conversor
+
 class Program:
 
     def __init__(self, streamlit):
@@ -14,6 +16,14 @@ class Program:
         self.st.session_state['file_name'] = file_name
 
         return file_name
+    
+    def check_file(self):
+
+        if 'uploaded_frame' in self.st.session_state:
+            return
+        
+        conversor = Conversor(file=None, default=True)
+        self.__save_session_frame__(conversor)
     
     def get_best_sellers_in_seasons(self):
         frame = self.__get_uploaded_frame__()

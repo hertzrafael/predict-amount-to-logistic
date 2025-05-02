@@ -18,6 +18,7 @@ def run():
         menu = st.selectbox('Escolha a sua página', pages.keys())
         st.divider()
 
+    program.check_file()
     pages[menu]()
 
 if __name__ == "__main__":
